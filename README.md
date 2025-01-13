@@ -1,5 +1,8 @@
 # Cartesi's GraphQL
 
+> [!IMPORTANT]
+> Cartesi is maintaing this project. Go to https://github.com/cartesi/rollups-graphql to get the latest version.
+
 ![CI](https://github.com/Calindra/cartesi-rollups-graphql/actions/workflows/ci.yaml/badge.svg)
 [![Go Report Card](https://goreportcard.com/badge/github.com/Calindra/cartesi-rollups-graphql)](https://goreportcard.com/report/github.com/Calindra/cartesi-rollups-graphql)
 
