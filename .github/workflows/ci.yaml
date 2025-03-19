@@ -61,17 +61,17 @@ jobs:
       - name: Install Foundry
         uses: foundry-rs/foundry-toolchain@v1
 
-      - name: Run devnet (Anvil)
+      - name: Start devnet (Anvil)
         run: |
           cd rollups-node
           make devnet
-          make run-devnet
+          make start-devnet
 
       - name: Build Node v2 image
         run: |
           docker build -t node_v2 -f ./ci/Dockerfile .
 
-      - name: Run Node v2 image
+      - name: Start Node v2 image
         run: |
           docker run -d --env-file ./ci/env.nodev2-local \
             --rm --network=host \
