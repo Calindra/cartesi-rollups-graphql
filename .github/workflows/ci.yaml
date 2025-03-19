@@ -89,13 +89,7 @@ jobs:
 
       - name: Send input transaction
         run: |
-          INPUT=0xdeadbeef; \
-          INPUT_BOX_ADDRESS=0x593E5BCf894D6829Dd26D0810DA7F064406aebB6; \
-          APPLICATION_ADDRESS=0x36B9E60ACb181da458aa8870646395CD27cD0E6E; \
-          cast send \
-              --mnemonic "test test test test test test test test test test test junk" \
-              --rpc-url "http://localhost:8545" \
-              $INPUT_BOX_ADDRESS "addInput(address,bytes)(bytes32)" $APPLICATION_ADDRESS $INPUT
+          ./ci/scripts/send_inputs.sh
 
       - name: Query Database for Output
         run: |
@@ -113,6 +107,18 @@ jobs:
           echo "Timeout reached: result not found"
           docker logs --timestamps c_espresso
           exit 1
+
+      - name: Dump database
+        env:
+          PGPASSWORD: password
+        run: |
+          pg_dump -h localhost -U postgres -d rollupsdb > rollupsdb-dump.sql
+
+      - name: Upload database dump
+        uses: actions/upload-artifact@v4
+        with:
+          name: db-dump
+          path: rollupsdb-*
 
   build:
     name: Build and test
