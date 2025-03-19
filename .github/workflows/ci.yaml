@@ -78,10 +78,13 @@ jobs:
             --name c_node_v2 node_v2
           sleep 10
 
-      - name: Install Echo App
+      - name: Debug logs
         run: |
           docker ps
           docker logs --timestamps c_node_v2
+
+      - name: Install Echo App
+        run: |
           docker exec c_node_v2 cartesi-rollups-cli app deploy -n echo-dapp -t applications/echo-dapp/ -v
 
       - name: Send input transaction
