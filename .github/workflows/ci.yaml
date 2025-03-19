@@ -25,7 +25,7 @@ jobs:
           POSTGRES_DB: rollupsdb
         options: --name postgres
     steps:
-      - uses: action/checkout@v4
+      - uses: actions/checkout@v4
       
       - name: Clone Node V2 (avoid submodules)
         run: |
