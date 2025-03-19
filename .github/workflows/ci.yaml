@@ -76,9 +76,11 @@ jobs:
           docker run -d --env-file ./ci/env.nodev2-local \
             --rm --network=host \
             --name c_node_v2 node_v2
+          sleep 10
 
       - name: Install Echo App
         run: |
+          docker ps
           docker logs --timestamps c_node_v2
           docker exec c_node_v2 cartesi-rollups-cli app deploy -n echo-dapp -t applications/echo-dapp/ -v
 
