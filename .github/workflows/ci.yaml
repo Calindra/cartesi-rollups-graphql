@@ -9,6 +9,28 @@ env:
   ANVIL_TAG: nightly-2cdbfaca634b284084d0f86357623aef7a0d2ce3
 
 jobs:
+  build_node_v2:
+    name: Build Node v2
+    runs-on: ubuntu-latest
+    env:
+      CARTESI_POSTGRES_ENDPOINT: 'postgres://postgres:password@localhost:5432/rollupsdb?sslmode=disable'
+    services:
+      postgres:
+        image: postgres:16
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: rollupsdb
+        options: --name postgres
+    steps:
+      - uses: action/checkout@v4
+      
+      - name: Clone Node V2 (avoid submodules)
+        run: |
+          git clone -b v2.0.0-alpha.1 --depth 1 --recurse-submodules https://github.com/cartesi/rollups-node.git
+
   build:
     name: Build and test
     runs-on: ubuntu-latest
